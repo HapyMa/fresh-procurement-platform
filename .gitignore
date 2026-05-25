@@ -6,6 +6,7 @@
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -70,12 +71,17 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Gradle
+# Gradle - Allow wrapper in subdirectories
 .gradle/
-gradle/
+**/gradle/
+!FreshProcurementApp/gradle/
+!fresh-backend/gradle/
 gradlew
 gradlew.bat
-!fresh-backend/gradle/wrapper/gradle-wrapper.properties
+!FreshProcurementApp/gradlew
+!FreshProcurementApp/gradlew.bat
+!fresh-backend/gradlew
+!fresh-backend/gradlew.bat
 
 # Spring Boot
 *.pid
