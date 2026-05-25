@@ -12,11 +12,4 @@ public class LoginResponse {
     private String token;
     private String expireAt;
     private Integer userType;
-
-    public LoginResponse(Long userId, String token, String expireAt, Integer userType) {
-        this.userId = userId;
-        this.token = token;
-        this.expireAt = expireAt;
-        this.userType = userType;
-    }
 }

@@ -84,15 +84,13 @@ fun AdminUserDetailScreen(
                 ) {
                     Text(
                         text = "加载失败",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.error
-                    )
+                        style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.error),
+                                            )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = uiState.error ?: "",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                            )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = { viewModel.loadUserDetail(userId) }) {
                         Text("重试")
@@ -118,9 +116,8 @@ fun AdminUserDetailScreen(
                         ) {
                             Text(
                                 text = uiState.error ?: "",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onErrorContainer,
-                                modifier = Modifier.padding(12.dp)
+                                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onErrorContainer,),
+                                                                modifier = Modifier.padding(12.dp)
                             )
                         }
                     }
@@ -272,9 +269,8 @@ private fun UserHeaderCard(user: AdminUserItem) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = user.phone,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
-                )
+                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)),
+                                    )
             }
 
             // 状态标签
@@ -295,9 +291,8 @@ private fun StatusBadge(isActive: Boolean) {
     ) {
         Text(
             text = if (isActive) "正常" else "已禁用",
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+            style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.onPrimary,),
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
         )
     }
 }
@@ -343,9 +338,8 @@ private fun InfoRow(label: String, value: String) {
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                    )
         Text(
             text = value,
             style = MaterialTheme.typography.bodyMedium,

@@ -87,15 +87,13 @@ fun AdminDemandDetailScreen(
                 ) {
                     Text(
                         text = "加载失败",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.error
-                    )
+                        style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.error),
+                                            )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = uiState.error ?: "",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                            )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = { viewModel.loadDemandDetail(demandId) }) {
                         Text("重试")
@@ -121,9 +119,8 @@ fun AdminDemandDetailScreen(
                         ) {
                             Text(
                                 text = uiState.error ?: "",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onErrorContainer,
-                                modifier = Modifier.padding(12.dp)
+                                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onErrorContainer,),
+                                                                modifier = Modifier.padding(12.dp)
                             )
                         }
                     }
@@ -269,8 +266,7 @@ private fun DemandStatusCard(demand: AdminDemandItem) {
             Spacer(modifier = Modifier.width(12.dp))
             Text(
                 text = "当前状态: ${demand.getStatusText()}",
-                style = MaterialTheme.typography.titleMedium,
-                color = contentColor
+                style = MaterialTheme.typography.titleMedium.copy(color = contentColor)
             )
         }
     }
@@ -399,9 +395,8 @@ private fun DealInfoCard(demand: AdminDemandItem) {
                 ) {
                     Text(
                         text = "已成交",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.onPrimary,),
+                                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                     )
                 }
             }
@@ -467,9 +462,8 @@ private fun InfoRow(
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                    )
         Text(
             text = value,
             style = MaterialTheme.typography.bodyMedium,

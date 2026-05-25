@@ -180,15 +180,13 @@ private fun DashboardTab(
                 ) {
                     Text(
                         text = "加载失败",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.error
-                    )
+                        style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.error),
+                                            )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = state.error,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                            )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = onRefresh) {
                         Text("重试")
@@ -267,9 +265,8 @@ private fun DashboardTab(
                                 ) {
                                     Text(
                                         text = "暂无用户",
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
+                                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                                            )
                                 }
                             }
                         } else {
@@ -342,9 +339,8 @@ private fun StatCard(
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = data.label,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                            )
         }
     }
 }
@@ -374,9 +370,8 @@ private fun RecentUserCard(
                 Box(contentAlignment = Alignment.Center) {
                     Text(
                         text = (user.nickname ?: user.phone).take(1),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = FreshGreenDark
-                    )
+                        style = MaterialTheme.typography.titleMedium.copy(color = FreshGreenDark),
+                                            )
                 }
             }
 
@@ -392,23 +387,20 @@ private fun RecentUserCard(
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
                     text = user.phone,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                    style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                    )
             }
 
             Column(horizontalAlignment = Alignment.End) {
                 Text(
                     text = user.getUserTypeText(),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                    style = MaterialTheme.typography.labelMedium.copy(color = MaterialTheme.colorScheme.primary),
+                                    )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
                     text = if (user.isActive()) "正常" else "禁用",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = if (user.isActive()) FreshGreen else RedError
-                )
+                    style = MaterialTheme.typography.labelSmall.copy(color = if (user.isActive()) FreshGreen else RedError),
+                                    )
             }
         }
     }
@@ -451,15 +443,13 @@ private fun UsersTab(
                 ) {
                     Text(
                         text = "加载失败",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.error
-                    )
+                        style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.error),
+                                            )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = state.error,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                            )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = onRefresh) {
                         Text("重试")
@@ -476,9 +466,8 @@ private fun UsersTab(
                     item {
                         Text(
                             text = "共 ${state.total} 位用户",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                    )
                     }
 
                     // User type filter chips
@@ -531,9 +520,8 @@ private fun UsersTab(
                             ) {
                                 Text(
                                     text = "暂无数据",
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                    style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                                    )
                             }
                         }
                     } else {
@@ -580,9 +568,8 @@ private fun AdminUserCard(
                         Box(contentAlignment = Alignment.Center) {
                             Text(
                                 text = (user.nickname ?: user.phone).take(1),
-                                style = MaterialTheme.typography.titleMedium,
-                                color = FreshGreenDark
-                            )
+                                style = MaterialTheme.typography.titleMedium.copy(color = FreshGreenDark),
+                                                            )
                         }
                     }
                     Spacer(modifier = Modifier.width(12.dp))
@@ -595,9 +582,8 @@ private fun AdminUserCard(
                         )
                         Text(
                             text = user.phone,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                            style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                    )
                     }
                 }
 
@@ -608,9 +594,8 @@ private fun AdminUserCard(
                 ) {
                     Text(
                         text = if (user.isActive()) "正常" else "禁用",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = if (user.isActive()) FreshGreen else RedError,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        style = MaterialTheme.typography.labelMedium.copy(color = if (user.isActive()) FreshGreen else RedError,),
+                                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                     )
                 }
             }
@@ -623,14 +608,12 @@ private fun AdminUserCard(
             ) {
                 Text(
                     text = "类型: ${user.getUserTypeText()}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                    style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                    )
                 Text(
                     text = "注册: ${formatDate(user.createdAt)}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                    style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                    )
             }
         }
     }
@@ -672,15 +655,13 @@ private fun DemandsTab(
                 ) {
                     Text(
                         text = "加载失败",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.error
-                    )
+                        style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.error),
+                                            )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = state.error,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                            )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = onRefresh) {
                         Text("重试")
@@ -697,9 +678,8 @@ private fun DemandsTab(
                     item {
                         Text(
                             text = "共 ${state.total} 条需求",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                    )
                     }
 
                     // Status filter chips
@@ -743,9 +723,8 @@ private fun DemandsTab(
                             ) {
                                 Text(
                                     text = "暂无数据",
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                    style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                                    )
                             }
                         }
                     } else {
@@ -800,9 +779,8 @@ private fun AdminDemandCard(
             Row(verticalAlignment = Alignment.Bottom) {
                 Text(
                     text = "${demand.quantity.toInt()}",
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                    style = MaterialTheme.typography.headlineSmall.copy(color = MaterialTheme.colorScheme.primary),
+                                    )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = demand.unit ?: "",
@@ -815,9 +793,8 @@ private fun AdminDemandCard(
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "成交: ¥${demand.dealPrice}/(${demand.unit ?: ""})  总计: ¥${formatAmount(demand.dealTotalAmount)}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = OrangeDark
-                )
+                    style = MaterialTheme.typography.bodySmall.copy(color = OrangeDark),
+                                    )
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -829,9 +806,8 @@ private fun AdminDemandCard(
             ) {
                 Text(
                     text = "采购商: ${demand.buyerName ?: "-"}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
+                    style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant,),
+                                        maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(1f)
                 )
@@ -839,9 +815,8 @@ private fun AdminDemandCard(
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
                         text = "供应商: ${demand.supplierName}",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
+                        style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant,),
+                                                maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.weight(1f)
                     )
@@ -865,16 +840,14 @@ private fun AdminDemandCard(
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
                             text = demand.cityName,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                            style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                    )
                     }
                 }
                 Text(
                     text = formatDate(demand.createdAt),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                    style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                    )
             }
         }
     }
@@ -898,9 +871,8 @@ private fun DemandStatusChip(status: Int) {
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.labelMedium,
-            color = contentColor,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            style = MaterialTheme.typography.labelMedium.copy(color = contentColor,),
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
         )
     }
 }
@@ -940,15 +912,13 @@ private fun QuotesTab(
                 ) {
                     Text(
                         text = "加载失败",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.error
-                    )
+                        style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.error),
+                                            )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = state.error,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                        style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                            )
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = onRefresh) {
                         Text("重试")
@@ -965,9 +935,8 @@ private fun QuotesTab(
                     item {
                         Text(
                             text = "共 ${state.total} 条报价",
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                    )
                     }
 
                     // Status filter chips
@@ -1007,9 +976,8 @@ private fun QuotesTab(
                             ) {
                                 Text(
                                     text = "暂无数据",
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                    style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                                    )
                             }
                         }
                     } else {
@@ -1063,14 +1031,12 @@ private fun AdminQuoteCard(
                     Column {
                         Text(
                             text = "单价",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                            style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                    )
                         Text(
                             text = "¥${formatAmount(quote.unitPrice)}",
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.Bold
+                            style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.primary,),
+                                                        fontWeight = FontWeight.Bold
                         )
                     }
                 }
@@ -1078,14 +1044,12 @@ private fun AdminQuoteCard(
                     Column {
                         Text(
                             text = "总价",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                            style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                    )
                         Text(
                             text = "¥${formatAmount(quote.totalAmount)}",
-                            style = MaterialTheme.typography.titleMedium,
-                            color = OrangeDark,
-                            fontWeight = FontWeight.Bold
+                            style = MaterialTheme.typography.titleMedium.copy(color = OrangeDark,),
+                                                        fontWeight = FontWeight.Bold
                         )
                     }
                 }
@@ -1100,9 +1064,8 @@ private fun AdminQuoteCard(
             ) {
                 Text(
                     text = "供应商: ${quote.supplierName ?: "-"}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
+                    style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant,),
+                                        maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(1f)
                 )
@@ -1118,9 +1081,8 @@ private fun AdminQuoteCard(
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
                             text = quote.cityName,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                            style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                    )
                     }
                 }
             }
@@ -1129,9 +1091,8 @@ private fun AdminQuoteCard(
 
             Text(
                 text = formatDate(quote.createdAt),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+                style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                            )
         }
     }
 }
@@ -1150,9 +1111,8 @@ private fun QuoteStatusChip(status: Int) {
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.labelMedium,
-            color = contentColor,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            style = MaterialTheme.typography.labelMedium.copy(color = contentColor,),
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
         )
     }
 }
@@ -1220,9 +1180,8 @@ private fun OrdersTab(
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
                                     text = "总订单数",
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                                    )
                             }
                         }
                     }
@@ -1255,9 +1214,8 @@ private fun OrdersTab(
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
                                     text = "成交总金额",
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
+                                    style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                                    )
                             }
                         }
                     }
@@ -1287,9 +1245,8 @@ private fun OrdersTab(
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(
                                         text = "总需求数",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
+                                        style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                                            )
                                 }
                             }
 
@@ -1312,9 +1269,8 @@ private fun OrdersTab(
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(
                                         text = "总报价数",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
+                                        style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                                            )
                                 }
                             }
                         }
@@ -1348,9 +1304,8 @@ private fun OrdersTab(
                                     )
                                     Text(
                                         text = "待处理需求",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
+                                        style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                                                            )
                                 }
                             }
                         }
@@ -1407,9 +1362,8 @@ private fun OrdersTab(
                 ) {
                     Text(
                         text = "暂无数据",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                        style = MaterialTheme.typography.bodyLarge.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                                            )
                 }
             }
         }
@@ -1429,9 +1383,8 @@ private fun OrderSummaryRow(
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                    )
         Text(
             text = value,
             style = MaterialTheme.typography.bodyMedium,
@@ -1449,6 +1402,7 @@ private data class FilterChipItem(
     val key: Int
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun FilterChipRow(
     items: List<FilterChipItem>,
