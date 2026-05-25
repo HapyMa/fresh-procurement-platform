@@ -1,0 +1,96 @@
+# =============================================================================
+# Git Ignore
+# =============================================================================
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Android Studio / IntelliJ
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/app/src/main/**/out/
+
+# Kotlin
+*.class
+*.log
+*.kt.bak
+
+# Generated files
+bin/
+gen/
+
+# Local configuration (SDK, keystore, etc)
+*.properties
+local.properties
+
+# Log Files
+*.log
+
+# Android
+*.apk
+*.ap_
+*.aab
+*.dex
+*.apk
+/app/build/outputs/apk/
+/app/build/outputs/bundle/
+/app/build/outputs/mapping/
+
+# Signing
+*.jks
+*.keystore
+*.p12
+*.mobileprovision
+!gradle/*.properties
+
+# Lint
+lint-results*.html
+lint-results*.xml
+reports/
+**/reports/
+
+# Maven / Gradle wrapper
+!.gradlewrapper.properties
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Gradle
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+!fresh-backend/gradle/wrapper/gradle-wrapper.properties
+
+# Spring Boot
+*.pid
+*.seed
+*.log
+
+# Application
+application-local.yml
+application-local.properties
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
