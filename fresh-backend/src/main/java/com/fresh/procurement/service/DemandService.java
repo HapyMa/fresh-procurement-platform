@@ -2,6 +2,7 @@ package com.fresh.procurement.service;
 
 import com.fresh.procurement.dto.CreateDemandRequest;
 import com.fresh.procurement.dto.DemandGroupDetail;
+import com.fresh.procurement.dto.DemandGroupListResponse;
 import com.fresh.procurement.dto.DemandListResponse;
 import com.fresh.procurement.dto.SelectQuoteRequest;
 import com.fresh.procurement.entity.*;
