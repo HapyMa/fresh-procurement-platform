@@ -68,13 +68,14 @@ fun CreateDemandScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // 错误提示
-                if (uiState.error != null) {
+                val createError = uiState.error
+                if (createError != null) {
                     Surface(
                         color = MaterialTheme.colorScheme.errorContainer,
                         shape = MaterialTheme.shapes.small
                     ) {
                         Text(
-                            text = uiState.error,
+                            text = createError,
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onErrorContainer,
                             modifier = Modifier.padding(12.dp)

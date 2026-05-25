@@ -100,8 +100,9 @@ fun DemandGroupDetailScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        val groupError = uiState.error
                         Text(
-                            text = uiState.error,
+                            text = groupError ?: "",
                             color = MaterialTheme.colorScheme.error,
                             style = MaterialTheme.typography.bodyMedium
                         )

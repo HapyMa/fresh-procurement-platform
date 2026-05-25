@@ -7,6 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -72,8 +73,9 @@ fun PackOrderScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    val packError = uiState.error
                     Text(
-                        text = uiState.error,
+                        text = packError ?: "",
                         color = MaterialTheme.colorScheme.error,
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -92,7 +94,7 @@ fun PackOrderScreen(
                 // 步骤指示器
                 StepIndicator(currentStep = currentStep)
 
-                HorizontalDivider()
+                Divider()
 
                 // 内容区域
                 when (currentStep) {

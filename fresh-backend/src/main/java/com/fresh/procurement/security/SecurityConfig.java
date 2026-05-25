@@ -28,12 +28,12 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 // 公开接口
-                .requestMatchers("/api/v1/auth/**").permitAll()
-                .requestMatchers("/api/v1/categories").permitAll()
-                .requestMatchers("/api/v1/cities").permitAll()
-                .requestMatchers("/h2-console/**").permitAll()
+                .antMatchers("/api/v1/auth/**").permitAll()
+                .antMatchers("/api/v1/categories").permitAll()
+                .antMatchers("/api/v1/cities").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 // 静态资源
-                .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/uploads/**").permitAll()
                 // 其他接口需要认证
                 .anyRequest().authenticated()
             )

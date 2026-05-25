@@ -75,8 +75,9 @@ fun ShipOrderScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    val shipError = uiState.error
                     Text(
-                        text = uiState.error,
+                        text = shipError ?: "",
                         color = MaterialTheme.colorScheme.error,
                         style = MaterialTheme.typography.bodyMedium
                     )

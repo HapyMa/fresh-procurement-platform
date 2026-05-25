@@ -82,8 +82,9 @@ fun DemandDetailScreen(
                         color = MaterialTheme.colorScheme.error
                     )
                     Spacer(modifier = Modifier.height(8.dp))
+                    val detailError = uiState.error
                     Text(
-                        text = uiState.error,
+                        text = detailError ?: "",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -104,14 +105,15 @@ fun DemandDetailScreen(
                         .verticalScroll(rememberScrollState())
                 ) {
                     // 错误提示（非阻塞）
-                    if (uiState.error != null) {
+                    val nonBlockError = uiState.error
+                    if (nonBlockError != null) {
                         Surface(
                             color = MaterialTheme.colorScheme.errorContainer,
                             shape = MaterialTheme.shapes.small,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                         ) {
                             Text(
-                                text = uiState.error,
+                                text = nonBlockError,
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onErrorContainer,
                                 modifier = Modifier.padding(12.dp)
