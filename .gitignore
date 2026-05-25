@@ -2,11 +2,9 @@
 # Git Ignore
 # =============================================================================
 
-# Gradle
+# Built output
 .gradle/
 build/
-!gradle/wrapper/gradle-wrapper.jar
-!gradle/wrapper/gradle-wrapper.properties
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -20,26 +18,21 @@ out/
 
 # Kotlin
 *.class
-*.log
 *.kt.bak
 
 # Generated files
 bin/
 gen/
-
-# Local configuration (SDK, keystore, etc)
-*.properties
 local.properties
 
 # Log Files
 *.log
 
-# Android
+# Android build outputs
 *.apk
 *.ap_
 *.aab
 *.dex
-*.apk
 /app/build/outputs/apk/
 /app/build/outputs/bundle/
 /app/build/outputs/mapping/
@@ -49,16 +42,11 @@ local.properties
 *.keystore
 *.p12
 *.mobileprovision
-!gradle/*.properties
 
 # Lint
 lint-results*.html
 lint-results*.xml
-reports/
 **/reports/
-
-# Maven / Gradle wrapper
-!.gradlewrapper.properties
 
 # Environment files
 .env
@@ -71,29 +59,18 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Gradle - Allow wrapper in subdirectories
-.gradle/
-**/gradle/
-!FreshProcurementApp/gradle/
-!fresh-backend/gradle/
-gradlew
-gradlew.bat
-!FreshProcurementApp/gradlew
-!FreshProcurementApp/gradlew.bat
-!fresh-backend/gradlew
-!fresh-backend/gradlew.bat
-
 # Spring Boot
 *.pid
 *.seed
-*.log
 
 # Application
 application-local.yml
 application-local.properties
 
-# Package Files
+# Package Files (but NOT gradle-wrapper.jar)
 *.jar
+!gradle-wrapper.jar
+!**/gradle-wrapper.jar
 *.war
 *.nar
 *.ear
