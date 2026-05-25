@@ -3,18 +3,12 @@ name: Backend CI/CD
 on:
   push:
     branches: [ main, master, develop ]
-    paths:
-      - 'fresh-backend/**'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'fresh-backend/**'
   workflow_dispatch:
 
 env:
   JAVA_VERSION: '17'
-  SPRING_BOOT_VERSION: '2.7.18'
-  GRADLE_VERSION: '7.6.4'
 
 jobs:
   # ==================== 后端编译检查 ====================
@@ -68,6 +62,7 @@ jobs:
             fresh-backend/build/reports/
             fresh-backend/build/test-results/
           retention-days: 7
+          if-no-files-found: warn
 
   # ==================== 后端单元测试 ====================
   test-backend:
@@ -101,6 +96,7 @@ jobs:
           name: test-reports
           path: fresh-backend/build/reports/tests/
           retention-days: 14
+          if-no-files-found: warn
 
   # ==================== 后端 Docker 镜像构建 ====================
   docker-build:
@@ -114,34 +110,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK ${{ env.JAVA_VERSION }}
-        uses: actions/setup-java@v4
+      - name: Download JAR artifact
+        uses: actions/download-artifact@v4
         with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
-          cache: 'gradle'
-
-      - name: Build JAR
-        run: |
-          cd ${{ github.workspace }}/fresh-backend
-          ./gradlew bootJar --no-daemon
+          name: backend-jar
+          path: fresh-backend/build/libs/
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push Docker image
+      - name: Build Docker image (no push - no credentials configured)
         uses: docker/build-push-action@v5
         with:
           context: ./fresh-backend
-          push: true
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/fresh-backend:latest
-            ${{ secrets.DOCKER_USERNAME }}/fresh-backend:${{ github.sha }}
+          push: false
+          tags: fresh-backend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: |
+            JAR_FILE=build/libs/*.jar
