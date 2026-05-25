@@ -201,7 +201,7 @@ public class DemandService {
             list = allGroups.subList(fromIndex, toIndex);
         }
 
-        return new DemandGroupListResponse(total, list);
+        return new DemandGroupListResponse(city, page, size, total, list);
     }
 
     /**

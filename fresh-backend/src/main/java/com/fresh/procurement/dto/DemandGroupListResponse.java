@@ -11,6 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DemandGroupListResponse {
+    private String city;
+    private int page;
+    private int size;
     private int total;
-    private List<DemandGroup> list;
+    private List<DemandGroup> demandGroups;
 }

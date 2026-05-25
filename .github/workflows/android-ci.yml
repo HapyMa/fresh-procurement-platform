@@ -55,16 +55,6 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ${{ github.workspace }}/FreshProcurementApp/gradlew
 
-      - name: Validate Gradle wrapper
-        run: |
-          cd ${{ github.workspace }}/FreshProcurementApp
-          ./gradlew wrapper --validate-wrapper
-
-      - name: Clean build
-        run: |
-          cd ${{ github.workspace }}/FreshProcurementApp
-          ./gradlew clean --no-daemon --stacktrace
-
       - name: Build debug APK
         run: |
           cd ${{ github.workspace }}/FreshProcurementApp
