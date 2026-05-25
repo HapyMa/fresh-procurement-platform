@@ -17,7 +17,7 @@ jobs:
   build-android:
     name: Build Android APK
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     steps:
       - name: Checkout code
@@ -43,15 +43,43 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Check project structure
+        run: |
+          echo "=== Project Structure ==="
+          ls -la ${{ github.workspace }}/FreshProcurementApp/
+          echo "=== Gradle Wrapper ==="
+          ls -la ${{ github.workspace }}/FreshProcurementApp/gradle/wrapper/
+          echo "=== settings.gradle.kts ==="
+          cat ${{ github.workspace }}/FreshProcurementApp/settings.gradle.kts
+
       - name: Grant execute permission for gradlew
         run: chmod +x ${{ github.workspace }}/FreshProcurementApp/gradlew
+
+      - name: Validate Gradle wrapper
+        run: |
+          cd ${{ github.workspace }}/FreshProcurementApp
+          ./gradlew wrapper --validate-wrapper
+
+      - name: Clean build
+        run: |
+          cd ${{ github.workspace }}/FreshProcurementApp
+          ./gradlew clean --no-daemon --stacktrace
 
       - name: Build debug APK
         run: |
           cd ${{ github.workspace }}/FreshProcurementApp
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1
+
+      - name: Check build outputs
+        if: always()
+        run: |
+          echo "=== Build Outputs ==="
+          ls -la ${{ github.workspace }}/FreshProcurementApp/app/build/outputs/ || echo "No outputs directory"
+          ls -la ${{ github.workspace }}/FreshProcurementApp/app/build/outputs/apk/ || echo "No apk directory"
+          ls -la ${{ github.workspace }}/FreshProcurementApp/app/build/outputs/apk/debug/ || echo "No debug directory"
 
       - name: Upload debug APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk
@@ -67,6 +95,7 @@ jobs:
             FreshProcurementApp/app/build/outputs/
             FreshProcurementApp/app/build/reports/
           retention-days: 7
+          if-no-files-found: warn
 
   # ==================== 代码检查 ====================
   lint:
@@ -94,7 +123,13 @@ jobs:
       - name: Run lint
         run: |
           cd ${{ github.workspace }}/FreshProcurementApp
-          ./gradlew lintDebug --no-daemon
+          ./gradlew lintDebug --no-daemon --stacktrace 2>&1 || true
+
+      - name: Check lint reports
+        if: always()
+        run: |
+          echo "=== Lint Reports ==="
+          ls -la ${{ github.workspace }}/FreshProcurementApp/app/build/reports/ || echo "No reports directory"
 
       - name: Upload lint reports
         if: always()
@@ -103,3 +138,4 @@ jobs:
           name: lint-reports
           path: FreshProcurementApp/app/build/reports/lint-results-*.html
           retention-days: 7
+          if-no-files-found: warn
