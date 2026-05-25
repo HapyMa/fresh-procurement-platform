@@ -123,6 +123,48 @@ interface ApiService {
     
     @GET("api/v1/categories")
     suspend fun getCategories(@Query("parentId") parentId: Long = 0): Response<ApiResponse<List<Category>>>
+    
+    // ==================== 管理员模块 ====================
+    
+    @GET("api/v1/admin/dashboard")
+    suspend fun getAdminDashboard(): Response<ApiResponse<AdminDashboard>>
+    
+    @GET("api/v1/admin/users")
+    suspend fun getAdminUsers(
+        @Query("userType") userType: Int? = null,
+        @Query("status") status: Int? = null,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): Response<ApiResponse<AdminUserListResponse>>
+    
+    @GET("api/v1/admin/users/{userId}")
+    suspend fun getAdminUserDetail(@Path("userId") userId: Long): Response<ApiResponse<AdminUserItem>>
+    
+    @PUT("api/v1/admin/users/{userId}/toggle-status")
+    suspend fun toggleUserStatus(@Path("userId") userId: Long): Response<ApiResponse<AdminUserItem>>
+    
+    @GET("api/v1/admin/demands")
+    suspend fun getAdminDemands(
+        @Query("status") status: Int? = null,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): Response<ApiResponse<AdminDemandListResponse>>
+    
+    @GET("api/v1/admin/demands/{demandId}")
+    suspend fun getAdminDemandDetail(@Path("demandId") demandId: Long): Response<ApiResponse<AdminDemandItem>>
+    
+    @PUT("api/v1/admin/demands/{demandId}/cancel")
+    suspend fun cancelAdminDemand(@Path("demandId") demandId: Long): Response<ApiResponse<AdminDemandItem>>
+    
+    @GET("api/v1/admin/quotes")
+    suspend fun getAdminQuotes(
+        @Query("status") status: Int? = null,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): Response<ApiResponse<AdminQuoteListResponse>>
+    
+    @GET("api/v1/admin/order-stats")
+    suspend fun getAdminOrderStats(): Response<ApiResponse<AdminOrderStats>>
 }
 
 /**

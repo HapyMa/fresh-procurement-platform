@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Long userId = tokenProvider.getUserIdFromToken(token);
             int userType = tokenProvider.getUserTypeFromToken(token);
 
-            String role = userType == 1 ? "ROLE_BUYER" : (userType == 2 ? "ROLE_SUPPLIER" : "ROLE_USER");
+            String role = userType == 1 ? "ROLE_BUYER" : (userType == 2 ? "ROLE_SUPPLIER" : (userType == 3 ? "ROLE_ADMIN" : "ROLE_USER"));
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(

@@ -31,8 +31,7 @@ fun LoginScreen(
         when (loginState) {
             is AuthUiState.Success -> {
                 val data = (loginState as AuthUiState.Success).data
-                // 从 token 或用户信息中获取用户类型，这里简化处理
-                onLoginSuccess(1)
+                onLoginSuccess(data.userType)
             }
             else -> {}
         }

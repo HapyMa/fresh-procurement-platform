@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 enum class UserType(val value: Int) {
     BUYER(1),
     SUPPLIER(2),
-    BOTH(3)
+    ADMIN(3)
 }
 
 /**
@@ -53,7 +53,9 @@ data class LoginResponse(
     @SerializedName("token")
     val token: String,
     @SerializedName("expireAt")
-    val expireAt: String
+    val expireAt: String,
+    @SerializedName("userType")
+    val userType: Int
 )
 
 /**

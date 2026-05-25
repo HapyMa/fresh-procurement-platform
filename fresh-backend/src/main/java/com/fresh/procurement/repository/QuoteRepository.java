@@ -14,4 +14,9 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
     List<Quote> findBySupplierIdAndStatusOrderByCreatedAtDesc(Long supplierId, Integer status);
 
     List<Quote> findBySupplierIdOrderByCreatedAtDesc(Long supplierId);
+
+    @Override
+    long count();
+
+    List<Quote> findAllByOrderByCreatedAtDesc();
 }

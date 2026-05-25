@@ -19,6 +19,11 @@ INSERT INTO users (phone, password_hash, nickname, user_type, status) VALUES
 ('13900139000', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iAt6Z5EH', 'XX蔬菜批发', 2, 1),
 ('13900139001', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iAt6Z5EH', 'YY农产品', 2, 1);
 
+-- 插入管理员用户（密码: admin123, BCrypt加密）
+-- 注意：如需重新生成密码哈希，可使用 BCryptPasswordEncoder 或在线工具
+INSERT INTO users (phone, password_hash, nickname, user_type, status) VALUES
+('admin', '$2a$10$OkK/zAE6hyqiyIbLVlnDB.Kl9ZHYI/d01Pz.Y/G/JknLXNDY9d/vC', '系统管理员', 3, 1);
+
 -- 插入测试地址
 INSERT INTO user_addresses (user_id, address_type, contact_name, contact_phone, province, city, district, detail_address, longitude, latitude, is_default) VALUES
 (1, 1, '王小明', '13800138000', '四川省', '成都市', '武侯区', '科华北路XX号', 104.0668, 30.5728, 1),

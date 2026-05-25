@@ -52,7 +52,7 @@ public class AuthService {
                 .atZone(ZoneId.systemDefault())
                 .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-        return new LoginResponse(user.getId(), token, expireAt);
+        return new LoginResponse(user.getId(), token, expireAt, user.getUserType());
     }
 
     public LoginResponse login(LoginRequest request) {
@@ -78,6 +78,6 @@ public class AuthService {
                 .atZone(ZoneId.systemDefault())
                 .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-        return new LoginResponse(user.getId(), token, expireAt);
+        return new LoginResponse(user.getId(), token, expireAt, user.getUserType());
     }
 }

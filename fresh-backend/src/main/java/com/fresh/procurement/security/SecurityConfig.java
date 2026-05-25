@@ -34,6 +34,8 @@ public class SecurityConfig {
                 .antMatchers("/h2-console/**").permitAll()
                 // 静态资源
                 .antMatchers(HttpMethod.GET, "/uploads/**").permitAll()
+                // 管理员接口
+                .antMatchers("/api/v1/admin/**").hasRole("ADMIN")
                 // 其他接口需要认证
                 .anyRequest().authenticated()
             )
