@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitClient {
     
-    // 本地开发后端地址（真机测试时改为电脑的局域网IP，如 http://192.168.1.100:8080/）
-    private const val BASE_URL = "http://10.0.2.2:8080/"
+    // 服务器后端地址
+    private const val BASE_URL = "http://113.46.154.10:8080/"
     private const val TIMEOUT = 30L
     
     private var authToken: String? = null
