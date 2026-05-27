@@ -114,17 +114,14 @@ class TokenRefreshInterceptor @Inject constructor(
         return try {
             val refreshToken = tokenManager.getRefreshTokenSync()
             if (refreshToken == null) {
-                tokenManager.clearAll()
+                runBlocking { tokenManager.clearAll() }
                 return null
             }
 
             // TODO: 调用刷新 Token 的 API
-            // 这里需要注入 ApiService 来调用刷新接口
-            // 暂时返回 null，实际实现时需要完成刷新逻辑
-
             null
         } catch (e: Exception) {
-            tokenManager.clearAll()
+            runBlocking { tokenManager.clearAll() }
             null
         }
     }
