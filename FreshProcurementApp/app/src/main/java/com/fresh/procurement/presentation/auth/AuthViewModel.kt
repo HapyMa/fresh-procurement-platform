@@ -22,10 +22,11 @@ class AuthViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
 
-    private val _loginState = MutableStateFlow<UiState<LoginResult>>(UiState.Success(LoginResult(User(0, "", "", null, UserType.BUYER, 0, null, null), "", "")))
+    // 初始状态为 Idle，不触发导航
+    private val _loginState = MutableStateFlow<UiState<LoginResult>>(UiState.Idle)
     val loginState: StateFlow<UiState<LoginResult>> = _loginState.asStateFlow()
 
-    private val _registerState = MutableStateFlow<UiState<User>>(UiState.Success(User(0, "", "", null, UserType.BUYER, 0, null, null)))
+    private val _registerState = MutableStateFlow<UiState<User>>(UiState.Idle)
     val registerState: StateFlow<UiState<User>> = _registerState.asStateFlow()
 
     fun login(phone: String, password: String) {
@@ -44,13 +45,5 @@ class AuthViewModel @Inject constructor(
                 .onSuccess { user -> _registerState.value = UiState.Success(user) }
                 .onFailure { error -> _registerState.value = UiState.Error(error.toAppError()) }
         }
-    }
-
-    fun clearLoginState() {
-        _loginState.value = UiState.Success(LoginResult(User(0, "", "", null, UserType.BUYER, 0, null, null), "", ""))
-    }
-
-    fun clearRegisterState() {
-        _registerState.value = UiState.Success(User(0, "", "", null, UserType.BUYER, 0, null, null))
     }
 }

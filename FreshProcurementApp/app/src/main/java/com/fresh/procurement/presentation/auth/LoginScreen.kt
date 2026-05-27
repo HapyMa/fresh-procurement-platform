@@ -46,21 +46,20 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     val loginState by viewModel.loginState.collectAsStateWithLifecycle()
 
-    // 监听登录状态变化
+    // 监听登录状态变化 - 只在 Success 且用户有效时导航
     LaunchedEffect(loginState) {
-        when (loginState) {
-            is UiState.Success -> {
-                val data = (loginState as UiState.Success).data
+        if (loginState is UiState.Success) {
+            val data = (loginState as UiState.Success).data
+            if (data.user.id > 0) {
                 onLoginSuccess(data.user.userType.value)
             }
-            else -> {}
         }
     }
 
     val isLoading = loginState is UiState.Loading
-    val errorMessage = when (loginState) {
+    val errorMessage = when (val state = loginState) {
         is UiState.Error -> {
-            val error = (loginState as UiState.Error).error
+            val error = state.error
             when (error) {
                 is com.fresh.procurement.domain.error.AppError.BusinessError -> error.message
                 is com.fresh.procurement.domain.error.AppError.ValidationError -> "请检查输入信息"

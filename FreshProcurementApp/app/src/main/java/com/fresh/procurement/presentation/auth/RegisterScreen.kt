@@ -59,22 +59,21 @@ fun RegisterScreen(
 
     val registerState by viewModel.registerState.collectAsStateWithLifecycle()
 
-    // 监听注册状态
+    // 监听注册状态 - 只在真正注册成功时导航
     LaunchedEffect(registerState) {
-        when (registerState) {
-            is UiState.Success -> {
+        if (registerState is UiState.Success) {
+            val data = (registerState as UiState.Success).data
+            if (data.id > 0) {
                 onRegisterSuccess()
             }
-            is UiState.Error -> {
-                val error = (registerState as UiState.Error).error
-                localError = when (error) {
-                    is com.fresh.procurement.domain.error.AppError.BusinessError -> error.message
-                    is com.fresh.procurement.domain.error.AppError.ValidationError -> "请检查输入信息"
-                    is com.fresh.procurement.domain.error.AppError.NoInternet -> "网络连接失败，请检查网络"
-                    else -> "注册失败，请稍后重试"
-                }
+        } else if (registerState is UiState.Error) {
+            val error = (registerState as UiState.Error).error
+            localError = when (error) {
+                is com.fresh.procurement.domain.error.AppError.BusinessError -> error.message
+                is com.fresh.procurement.domain.error.AppError.ValidationError -> "请检查输入信息"
+                is com.fresh.procurement.domain.error.AppError.NoInternet -> "网络连接失败，请检查网络"
+                else -> "注册失败，请稍后重试"
             }
-            else -> {}
         }
     }
 

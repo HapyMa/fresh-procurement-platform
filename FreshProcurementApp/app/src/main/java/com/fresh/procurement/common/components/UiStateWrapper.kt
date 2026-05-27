@@ -20,6 +20,7 @@ import com.fresh.procurement.R
 import com.fresh.procurement.domain.error.AppError
 
 sealed class UiState<out T> {
+    data object Idle : UiState<Nothing>()
     data object Loading : UiState<Nothing>()
     data class Success<T>(val data: T) : UiState<T>()
     data class Error(val error: AppError) : UiState<Nothing>()
@@ -37,6 +38,9 @@ fun <T> UiStateWrapper(
         contentAlignment = Alignment.Center
     ) {
         when (state) {
+            is UiState.Idle -> {
+                // 不显示任何内容，由调用方处理
+            }
             is UiState.Loading -> {
                 CircularProgressIndicator()
             }
