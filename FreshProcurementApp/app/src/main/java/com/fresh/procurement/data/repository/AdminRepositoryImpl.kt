@@ -128,7 +128,12 @@ class AdminRepositoryImpl @Inject constructor(
         return safeApiCall {
             apiService.getAdminDashboard()
         }.map { dashboard ->
-            dashboard.orderStats ?: AdminOrderStatsDto(null)
+            AdminOrderStatsDto(
+                totalOrders = dashboard.totalOrders,
+                pendingOrders = dashboard.pendingDemands,
+                completedOrders = dashboard.totalOrders - dashboard.pendingDemands,
+                totalAmount = dashboard.totalAmount
+            )
         }
     }
 }
