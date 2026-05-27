@@ -129,10 +129,11 @@ class AdminRepositoryImpl @Inject constructor(
             apiService.getAdminDashboard()
         }.map { dashboard ->
             AdminOrderStatsDto(
-                totalOrders = dashboard.totalOrders,
-                pendingOrders = dashboard.pendingDemands,
-                completedOrders = dashboard.totalOrders - dashboard.pendingDemands,
-                totalAmount = dashboard.totalAmount
+                statusDistribution = mapOf(
+                    "totalOrders" to dashboard.totalOrders,
+                    "pendingDemands" to dashboard.pendingDemands,
+                    "totalAmount" to dashboard.totalAmount.toLong()
+                )
             )
         }
     }
