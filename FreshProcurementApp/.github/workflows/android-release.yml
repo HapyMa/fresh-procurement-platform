@@ -7,7 +7,6 @@ on:
 
 env:
   JAVA_VERSION: '17'
-  ANDROID_COMPILE_SDK: 34
 
 jobs:
   build-release:
@@ -32,27 +31,33 @@ jobs:
       - name: Grant execute permission
         run: chmod +x ./gradlew
 
-      - name: Build release APK
+      - name: Build release APK (debug signed)
         run: ./gradlew assembleRelease --no-daemon
 
-      - name: Rename APK
+      - name: Find APK
         run: |
-          mkdir -p output
-          cp app/build/outputs/apk/release/app-release-unsigned.apk output/fresh-procurement-v1.0.0.apk
-
-      - name: Upload to GitHub Release
-        uses: softprops/action-gh-release@v1
-        if: github.ref == 'refs/heads/main'
-        with:
-          tag_name: v1.0.0
-          name: Release v1.0.0
-          files: output/fresh-procurement-v1.0.0.apk
-          overwrite: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          find . -name "*.apk" -type f 2>/dev/null
+          ls -la app/build/outputs/apk/release/ 2>/dev/null || echo "No release folder"
 
       - name: Upload artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: fresh-procurement-apk
-          path: output/*.apk
+          path: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/apk/debug/*.apk
+          retention-days: 5
+
+      - name: Upload to GitHub Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v1.0.0
+          name: Release v1.0.0
+          files: |
+            app/build/outputs/apk/release/*.apk
+            app/build/outputs/apk/debug/*.apk
+          overwrite: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
