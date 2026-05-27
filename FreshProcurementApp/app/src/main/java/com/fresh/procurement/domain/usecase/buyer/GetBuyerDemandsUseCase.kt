@@ -29,8 +29,8 @@ class GetBuyerDemandsUseCase @Inject constructor(
                 size = size,
                 status = status?.value
             ).fold(
-                onSuccess = { response ->
-                    Result.success(response)
+                onSuccess = { (total, list) ->
+                    Result.success(DemandListResponse(total = total, list = list))
                 },
                 onFailure = { throwable ->
                     Result.failure(throwable.toAppError())

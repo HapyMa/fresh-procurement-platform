@@ -29,8 +29,8 @@ class GetAllDemandsUseCase @Inject constructor(
                 page = page,
                 size = size
             ).fold(
-                onSuccess = { response ->
-                    Result.success(response)
+                onSuccess = { (total, demands) ->
+                    Result.success(AdminDemandListResponse(total = total, demands = demands))
                 },
                 onFailure = { throwable ->
                     Result.failure(throwable.toAppError())

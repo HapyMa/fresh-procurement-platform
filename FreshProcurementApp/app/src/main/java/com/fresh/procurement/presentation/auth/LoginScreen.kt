@@ -62,7 +62,7 @@ fun LoginScreen(
         is UiState.Error -> {
             val error = (loginState as UiState.Error).error
             when (error) {
-                is com.fresh.procurement.domain.error.AppError.BusinessError -> error.bizMessage
+                is com.fresh.procurement.domain.error.AppError.BusinessError -> error.message
                 is com.fresh.procurement.domain.error.AppError.ValidationError -> "请检查输入信息"
                 is com.fresh.procurement.domain.error.AppError.Unauthorized -> "账号或密码错误"
                 is com.fresh.procurement.domain.error.AppError.NoInternet -> "网络连接失败，请检查网络"

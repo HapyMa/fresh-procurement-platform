@@ -38,8 +38,8 @@ class GetAllUsersUseCase @Inject constructor(
                 page = page,
                 size = size
             ).fold(
-                onSuccess = { response ->
-                    Result.success(response)
+                onSuccess = { (total, users) ->
+                    Result.success(AdminUserListResponse(total = total, users = users))
                 },
                 onFailure = { throwable ->
                     Result.failure(throwable.toAppError())

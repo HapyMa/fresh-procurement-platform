@@ -68,7 +68,18 @@ class CreateDemandUseCase @Inject constructor(
         )
 
         return try {
-            demandRepository.createDemand(request).fold(
+            demandRepository.createDemand(
+                categoryId = request.categoryId,
+                productName = request.productName,
+                quantity = request.quantity,
+                unit = request.unit,
+                maxPrice = request.maxPrice,
+                qualityRequirement = request.qualityRequirement,
+                deliveryAddressId = request.deliveryAddressId,
+                deliveryDate = request.deliveryDate,
+                deliveryTimeSlot = request.deliveryTimeSlot,
+                remark = request.remark
+            ).fold(
                 onSuccess = { demand ->
                     Result.success(demand)
                 },
