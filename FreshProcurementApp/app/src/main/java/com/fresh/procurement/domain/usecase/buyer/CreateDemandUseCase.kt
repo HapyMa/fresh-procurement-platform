@@ -1,7 +1,7 @@
 package com.fresh.procurement.domain.usecase.buyer
 
 import com.fresh.procurement.data.model.CreateDemandRequest
-import com.fresh.procurement.data.model.Demand
+import com.fresh.procurement.domain.model.Demand
 import com.fresh.procurement.domain.repository.DemandRepository
 import com.fresh.procurement.domain.error.AppError
 import com.fresh.procurement.domain.error.toAppError

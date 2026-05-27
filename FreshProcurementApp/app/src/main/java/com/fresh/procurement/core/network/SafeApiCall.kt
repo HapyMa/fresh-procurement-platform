@@ -1,6 +1,6 @@
 package com.fresh.procurement.core.network
 
-import com.fresh.procurement.data.model.ApiResponse
+import com.fresh.procurement.data.remote.dto.ApiResponseDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -56,7 +56,7 @@ sealed class NetworkError(val message: String) {
  * @return ApiResult 封装的结果
  */
 suspend fun <T> safeApiCall(
-    block: suspend () -> Response<ApiResponse<T>>
+    block: suspend () -> Response<ApiResponseDto<T>>
 ): ApiResult<T> = withContext(Dispatchers.IO) {
     try {
         val response = block()
