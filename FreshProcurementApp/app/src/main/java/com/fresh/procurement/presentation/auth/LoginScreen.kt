@@ -52,6 +52,7 @@ fun LoginScreen(
             val data = (loginState as UiState.Success).data
             if (data.user.id > 0) {
                 onLoginSuccess(data.user.userType.value)
+                viewModel.resetLoginState()
             }
         }
     }

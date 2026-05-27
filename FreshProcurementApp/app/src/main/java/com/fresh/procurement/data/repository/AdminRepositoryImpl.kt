@@ -8,13 +8,11 @@ import com.fresh.procurement.data.remote.dto.AdminQuoteItemDto
 import com.fresh.procurement.data.remote.dto.AdminUserItemDto
 import com.fresh.procurement.domain.repository.AdminRepository
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * 管理员仓库实现类
  * 实现 Domain 层的 AdminRepository 接口
  */
-@Singleton
 class AdminRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : BaseRepository(), AdminRepository {

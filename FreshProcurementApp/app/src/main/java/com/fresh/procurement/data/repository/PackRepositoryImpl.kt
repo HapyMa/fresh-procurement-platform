@@ -8,13 +8,11 @@ import com.fresh.procurement.domain.repository.PackRepository
 import com.fresh.procurement.domain.repository.PendingPackItemData
 import com.fresh.procurement.domain.repository.PendingPackListData
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * 分拣打包仓库实现类
  * 实现 Domain 层的 PackRepository 接口
  */
-@Singleton
 class PackRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : BaseRepository(), PackRepository {

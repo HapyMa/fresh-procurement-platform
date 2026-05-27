@@ -14,13 +14,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * 认证仓库实现类
  * 实现 Domain 层的 AuthRepository 接口
  */
-@Singleton
 class AuthRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val tokenManager: TokenManager
@@ -40,7 +38,7 @@ class AuthRepositoryImpl @Inject constructor(
             apiService.login(
                 LoginRequestDto(phone = phone, password = password)
             )
-        }.map { loginResponseDto ->
+        }.flatMap { loginResponseDto ->
             // 保存 Token
             tokenManager.saveAccessToken(loginResponseDto.token)
             tokenManager.saveUserId(loginResponseDto.userId)
@@ -49,20 +47,23 @@ class AuthRepositoryImpl @Inject constructor(
             )
 
             // 获取用户信息并转换为 Domain Model
-            val user = fetchUserProfile().getOrNull()
-                ?: throw IllegalStateException("无法获取用户信息")
+            runCatching {
+                fetchUserProfile().getOrThrow()
+            }.mapCatching { user ->
+                // 创建登录结果
+                val loginResult = LoginResult(
+                    user = user,
+                    token = loginResponseDto.token,
+                    expireAt = loginResponseDto.expireAt
+                )
 
-            // 创建登录结果
-            val loginResult = LoginResult(
-                user = user,
-                token = loginResponseDto.token,
-                expireAt = loginResponseDto.expireAt
-            )
+                // 更新当前用户状态
+                _currentUserFlow.value = user
 
-            // 更新当前用户状态
-            _currentUserFlow.value = user
-
-            loginResult
+                loginResult
+            }.getOrElse { e ->
+                throw e
+            }
         }
     }
 
@@ -89,7 +90,7 @@ class AuthRepositoryImpl @Inject constructor(
                     nickname = nickname
                 )
             )
-        }.map { loginResponseDto ->
+        }.flatMap { loginResponseDto ->
             // 保存 Token
             tokenManager.saveAccessToken(loginResponseDto.token)
             tokenManager.saveUserId(loginResponseDto.userId)
@@ -98,13 +99,16 @@ class AuthRepositoryImpl @Inject constructor(
             )
 
             // 获取用户信息
-            val user = fetchUserProfile().getOrNull()
-                ?: throw IllegalStateException("无法获取用户信息")
-
-            // 更新当前用户状态
-            _currentUserFlow.value = user
-
-            user
+            runCatching {
+                fetchUserProfile().getOrThrow()
+            }.onSuccess { user ->
+                // 更新当前用户状态
+                _currentUserFlow.value = user
+            }.mapCatching { user ->
+                user
+            }.getOrElse { e ->
+                throw e
+            }
         }
     }
 

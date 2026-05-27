@@ -18,9 +18,11 @@ object DemandMapper {
     fun DemandDto.toDomain(): Demand {
         return Demand(
             demandId = this.demandId,
-            buyerId = 0, // 需要从其他字段获取或后续填充
+            // TODO: DemandDto 中没有 buyerId 字段，需要后端补充或从其他接口获取
+            buyerId = 0,
             buyerNickname = this.buyerName,
-            categoryId = 0, // 需要从其他字段获取或后续填充
+            // TODO: DemandDto 中没有 categoryId 字段，需要后端补充或从其他接口获取
+            categoryId = 0,
             categoryName = null,
             productName = this.productName,
             quantity = this.quantity,

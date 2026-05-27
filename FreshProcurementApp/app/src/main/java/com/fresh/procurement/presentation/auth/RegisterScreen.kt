@@ -41,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.fresh.procurement.common.components.UiState
-import com.fresh.procurement.domain.model.UserType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,6 +64,7 @@ fun RegisterScreen(
             val data = (registerState as UiState.Success).data
             if (data.id > 0) {
                 onRegisterSuccess()
+                viewModel.resetRegisterState()
             }
         } else if (registerState is UiState.Error) {
             val error = (registerState as UiState.Error).error
@@ -199,11 +199,6 @@ fun RegisterScreen(
                         password != confirmPassword -> localError = "两次密码不一致"
                         else -> {
                             localError = null
-                            val userTypeEnum = when (userType) {
-                                1 -> UserType.BUYER
-                                2 -> UserType.SUPPLIER
-                                else -> UserType.BUYER
-                            }
                             viewModel.register(phone, password, nickname, userType)
                         }
                     }

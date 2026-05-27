@@ -12,13 +12,11 @@ import com.fresh.procurement.domain.repository.DemandGroupDetailData
 import com.fresh.procurement.domain.repository.DemandGroupItemData
 import com.fresh.procurement.domain.repository.DemandRepository
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * 需求仓库实现类
  * 实现 Domain 层的 DemandRepository 接口
  */
-@Singleton
 class DemandRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : BaseRepository(), DemandRepository {

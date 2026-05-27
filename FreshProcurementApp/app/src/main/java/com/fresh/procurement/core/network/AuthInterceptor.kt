@@ -1,7 +1,6 @@
 package com.fresh.procurement.core.network
 
 import com.fresh.procurement.core.security.TokenManager
-import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
@@ -35,10 +34,8 @@ class AuthInterceptor @Inject constructor(
             return chain.proceed(request)
         }
 
-        // 获取 Token 并添加到请求头
-        val token = runBlocking {
-            tokenManager.getAccessToken()
-        }
+        // 获取 Token 并添加到请求头（使用同步方法避免 runBlocking 死锁）
+        val token = tokenManager.getAccessTokenSync()
 
         val newRequest = if (token != null) {
             request.newBuilder()
@@ -114,23 +111,21 @@ class TokenRefreshInterceptor @Inject constructor(
      * @return 新的访问令牌，如果刷新失败返回 null
      */
     private fun refreshToken(): String? {
-        return runBlocking {
-            try {
-                val refreshToken = tokenManager.getRefreshToken()
-                if (refreshToken == null) {
-                    tokenManager.clearAll()
-                    return@runBlocking null
-                }
-
-                // TODO: 调用刷新 Token 的 API
-                // 这里需要注入 ApiService 来调用刷新接口
-                // 暂时返回 null，实际实现时需要完成刷新逻辑
-
-                null
-            } catch (e: Exception) {
+        return try {
+            val refreshToken = tokenManager.getRefreshTokenSync()
+            if (refreshToken == null) {
                 tokenManager.clearAll()
-                null
+                return null
             }
+
+            // TODO: 调用刷新 Token 的 API
+            // 这里需要注入 ApiService 来调用刷新接口
+            // 暂时返回 null，实际实现时需要完成刷新逻辑
+
+            null
+        } catch (e: Exception) {
+            tokenManager.clearAll()
+            null
         }
     }
 }

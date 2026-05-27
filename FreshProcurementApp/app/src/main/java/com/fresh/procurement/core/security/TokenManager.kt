@@ -36,6 +36,20 @@ interface TokenManager {
     suspend fun getAccessToken(): String?
 
     /**
+     * 同步获取访问令牌（非 suspend 版本）
+     * 用于 OkHttp Interceptor 等无法使用协程的场景
+     * @return 访问令牌，如果不存在返回 null
+     */
+    fun getAccessTokenSync(): String?
+
+    /**
+     * 同步获取刷新令牌（非 suspend 版本）
+     * 用于 OkHttp Interceptor 等无法使用协程的场景
+     * @return 刷新令牌，如果不存在返回 null
+     */
+    fun getRefreshTokenSync(): String?
+
+    /**
      * 获取刷新令牌
      * @return 刷新令牌，如果不存在返回 null
      */

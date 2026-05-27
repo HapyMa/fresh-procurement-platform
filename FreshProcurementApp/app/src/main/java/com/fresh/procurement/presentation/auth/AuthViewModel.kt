@@ -46,4 +46,18 @@ class AuthViewModel @Inject constructor(
                 .onFailure { error -> _registerState.value = UiState.Error(error.toAppError()) }
         }
     }
+
+    /**
+     * 重置登录状态为 Idle，防止 LaunchedEffect 重复触发导航
+     */
+    fun resetLoginState() {
+        _loginState.value = UiState.Idle
+    }
+
+    /**
+     * 重置注册状态为 Idle，防止 LaunchedEffect 重复触发导航
+     */
+    fun resetRegisterState() {
+        _registerState.value = UiState.Idle
+    }
 }

@@ -23,9 +23,9 @@ import com.fresh.procurement.data.remote.dto.QuoteListResponseDto
 import com.fresh.procurement.data.remote.dto.RegisterRequestDto
 import com.fresh.procurement.data.remote.dto.SelectQuoteRequestDto
 import com.fresh.procurement.data.remote.dto.ShipRequestDto
+import com.fresh.procurement.data.remote.dto.CategoryDto
 import com.fresh.procurement.data.remote.dto.UserAddressDto
 import com.fresh.procurement.data.remote.dto.UserDto
-import com.google.gson.annotations.SerializedName
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -223,24 +223,6 @@ interface ApiService {
     ): Response<ApiResponseDto<AdminQuoteListResponseDto>>
 
     @GET("api/v1/admin/order-stats")
-    suspend fun getAdminOrderStats(): Response<ApiResponseDto<AdminOrderStatsDto>>
+    suspend fun getOrderStats(): Response<ApiResponseDto<AdminOrderStatsDto>>
 }
-
-/**
- * 商品分类 DTO
- */
-data class CategoryDto(
-    @SerializedName("id")
-    val id: Long,
-    @SerializedName("parentId")
-    val parentId: Long,
-    @SerializedName("name")
-    val name: String,
-    @SerializedName("iconUrl")
-    val iconUrl: String?,
-    @SerializedName("sortOrder")
-    val sortOrder: Int,
-    @SerializedName("status")
-    val status: Int
-)
 

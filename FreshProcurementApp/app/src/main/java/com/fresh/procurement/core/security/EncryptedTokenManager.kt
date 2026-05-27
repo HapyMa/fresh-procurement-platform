@@ -82,6 +82,14 @@ class EncryptedTokenManager @Inject constructor(
         }
     }
 
+    override fun getAccessTokenSync(): String? {
+        return encryptedPrefs.getString(KEY_ACCESS_TOKEN, null)
+    }
+
+    override fun getRefreshTokenSync(): String? {
+        return encryptedPrefs.getString(KEY_REFRESH_TOKEN, null)
+    }
+
     override suspend fun getRefreshToken(): String? {
         return withContext(Dispatchers.IO) {
             encryptedPrefs.getString(KEY_REFRESH_TOKEN, null)

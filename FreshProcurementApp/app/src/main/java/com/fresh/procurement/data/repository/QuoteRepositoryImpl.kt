@@ -5,13 +5,11 @@ import com.fresh.procurement.data.remote.dto.CreateQuoteRequestDto
 import com.fresh.procurement.data.remote.dto.QuoteDto
 import com.fresh.procurement.domain.repository.QuoteRepository
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * 报价仓库实现类
  * 实现 Domain 层的 QuoteRepository 接口
  */
-@Singleton
 class QuoteRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ) : BaseRepository(), QuoteRepository {
