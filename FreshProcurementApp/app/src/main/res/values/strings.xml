@@ -1,3 +1,44 @@
 <resources>
     <string name="app_name">生鲜采购</string>
+
+    <!-- 错误信息 -->
+    <string name="error_title">出错了</string>
+    <string name="error_network">网络错误</string>
+    <string name="error_no_internet">无网络连接</string>
+    <string name="error_timeout">请求超时</string>
+    <string name="error_server">服务器错误</string>
+    <string name="error_unauthorized">未授权，请重新登录</string>
+    <string name="error_forbidden">无权限访问</string>
+    <string name="error_not_found">资源不存在</string>
+    <string name="error_validation">输入验证失败</string>
+    <string name="error_business">业务错误</string>
+    <string name="error_unknown">未知错误</string>
+
+    <!-- 通用按钮 -->
+    <string name="retry">重试</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="loading">加载中…</string>
+    <string name="save">保存</string>
+    <string name="delete">删除</string>
+    <string name="edit">编辑</string>
+
+    <!-- 认证相关 -->
+    <string name="login_title">登录</string>
+    <string name="register_title">注册</string>
+    <string name="phone_hint">手机号</string>
+    <string name="password_hint">密码</string>
+    <string name="confirm_password_hint">确认密码</string>
+    <string name="nickname_hint">昵称</string>
+    <string name="login_button">登录</string>
+    <string name="register_button">注册</string>
+    <string name="go_to_register">还没有账号？立即注册</string>
+    <string name="go_to_login">已有账号？立即登录</string>
+    <string name="buyer_type">采购商</string>
+    <string name="supplier_type">供应商</string>
+
+    <!-- 导航相关 -->
+    <string name="nav_home">首页</string>
+    <string name="nav_orders">订单</string>
+    <string name="nav_profile">我的</string>
 </resources>

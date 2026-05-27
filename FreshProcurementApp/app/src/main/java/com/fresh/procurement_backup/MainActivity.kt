@@ -9,8 +9,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.fresh.procurement.presentation.navigation.AppNavigation
-import com.fresh.procurement.presentation.theme.FreshProcurementTheme
+import com.fresh.procurement.ui.navigation.AppNavigation
+import com.fresh.procurement.ui.theme.FreshProcurementTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
