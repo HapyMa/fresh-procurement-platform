@@ -34,3 +34,12 @@ cors:
 spring.servlet.multipart:
   max-file-size: 10MB
   max-request-size: 10MB
+
+# 热更新配置 (仅开发环境生效)
+devtools:
+  restart:
+    enabled: true
+    additional-paths: src/main/java
+    trigger-file: .reloadtrigger
+  livereload:
+    enabled: true

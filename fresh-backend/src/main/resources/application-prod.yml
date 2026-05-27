@@ -35,3 +35,10 @@ cors:
 spring.servlet.multipart:
   max-file-size: 10MB
   max-request-size: 10MB
+
+# 生产环境禁用热更新
+devtools:
+  restart:
+    enabled: false
+  livereload:
+    enabled: false
