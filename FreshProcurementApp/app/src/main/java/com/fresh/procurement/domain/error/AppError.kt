@@ -4,24 +4,24 @@ import com.fresh.procurement.R
 import retrofit2.HttpException
 import java.io.IOException
 
-sealed class AppError(val messageResId: Int) {
+open class AppError(val messageResId: Int, override val message: String = "") : Exception(message) {
     // 网络错误
-    class NetworkError(val code: Int) : AppError(R.string.error_network)
-    class NoInternet : AppError(R.string.error_no_internet)
-    class Timeout : AppError(R.string.error_timeout)
+    class NetworkError(val code: Int) : AppError(R.string.error_network, "网络请求失败: $code")
+    class NoInternet : AppError(R.string.error_no_internet, "网络不可用")
+    class Timeout : AppError(R.string.error_timeout, "请求超时")
 
     // 服务器错误
-    class ServerError(val message: String) : AppError(R.string.error_server)
-    class Unauthorized : AppError(R.string.error_unauthorized)
-    class Forbidden : AppError(R.string.error_forbidden)
-    class NotFound : AppError(R.string.error_not_found)
+    class ServerError(serverMessage: String) : AppError(R.string.error_server, serverMessage)
+    class Unauthorized : AppError(R.string.error_unauthorized, "未授权")
+    class Forbidden : AppError(R.string.error_forbidden, "无权限")
+    class NotFound : AppError(R.string.error_not_found, "资源不存在")
 
     // 业务错误
-    class ValidationError(val field: String) : AppError(R.string.error_validation)
-    class BusinessError(val bizMessage: String) : AppError(R.string.error_business)
+    class ValidationError(field: String) : AppError(R.string.error_validation, "验证失败: $field")
+    class BusinessError(bizMessage: String) : AppError(R.string.error_business, bizMessage)
 
     // 未知错误
-    class Unknown(val detail: String) : AppError(R.string.error_unknown)
+    class Unknown(detail: String) : AppError(R.string.error_unknown, detail)
 }
 
 fun Throwable.toAppError(): AppError = when (this) {
