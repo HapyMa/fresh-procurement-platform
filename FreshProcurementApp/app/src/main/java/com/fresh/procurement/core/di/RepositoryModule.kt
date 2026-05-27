@@ -2,11 +2,16 @@ package com.fresh.procurement.core.di
 
 import com.fresh.procurement.core.security.EncryptedTokenManager
 import com.fresh.procurement.core.security.TokenManager
-import com.fresh.procurement.data.repository.AdminRepository
-import com.fresh.procurement.data.repository.AuthRepository
-import com.fresh.procurement.data.repository.DemandRepository
-import com.fresh.procurement.data.repository.PackRepository
-import com.fresh.procurement.data.repository.QuoteRepository
+import com.fresh.procurement.data.repository.AdminRepositoryImpl
+import com.fresh.procurement.data.repository.AuthRepositoryImpl
+import com.fresh.procurement.data.repository.DemandRepositoryImpl
+import com.fresh.procurement.data.repository.PackRepositoryImpl
+import com.fresh.procurement.data.repository.QuoteRepositoryImpl
+import com.fresh.procurement.domain.repository.AdminRepository
+import com.fresh.procurement.domain.repository.AuthRepository
+import com.fresh.procurement.domain.repository.DemandRepository
+import com.fresh.procurement.domain.repository.PackRepository
+import com.fresh.procurement.domain.repository.QuoteRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -31,47 +36,47 @@ abstract class RepositoryModule {
     ): TokenManager
 
     /**
-     * 绑定 AuthRepository
+     * 绑定 AuthRepository 接口到 AuthRepositoryImpl 实现
      */
     @Binds
     @Singleton
     abstract fun bindAuthRepository(
-        authRepository: AuthRepository
+        authRepositoryImpl: AuthRepositoryImpl
     ): AuthRepository
 
     /**
-     * 绑定 AdminRepository
+     * 绑定 AdminRepository 接口到 AdminRepositoryImpl 实现
      */
     @Binds
     @Singleton
     abstract fun bindAdminRepository(
-        adminRepository: AdminRepository
+        adminRepositoryImpl: AdminRepositoryImpl
     ): AdminRepository
 
     /**
-     * 绑定 DemandRepository
+     * 绑定 DemandRepository 接口到 DemandRepositoryImpl 实现
      */
     @Binds
     @Singleton
     abstract fun bindDemandRepository(
-        demandRepository: DemandRepository
+        demandRepositoryImpl: DemandRepositoryImpl
     ): DemandRepository
 
     /**
-     * 绑定 QuoteRepository
+     * 绑定 QuoteRepository 接口到 QuoteRepositoryImpl 实现
      */
     @Binds
     @Singleton
     abstract fun bindQuoteRepository(
-        quoteRepository: QuoteRepository
+        quoteRepositoryImpl: QuoteRepositoryImpl
     ): QuoteRepository
 
     /**
-     * 绑定 PackRepository
+     * 绑定 PackRepository 接口到 PackRepositoryImpl 实现
      */
     @Binds
     @Singleton
     abstract fun bindPackRepository(
-        packRepository: PackRepository
+        packRepositoryImpl: PackRepositoryImpl
     ): PackRepository
 }
