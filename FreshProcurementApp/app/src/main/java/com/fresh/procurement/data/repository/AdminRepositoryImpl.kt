@@ -126,9 +126,9 @@ class AdminRepositoryImpl @Inject constructor(
      */
     override suspend fun getOrderStats(): Result<AdminOrderStatsDto> {
         return safeApiCall {
-            apiService.getDashboard()
+            apiService.getAdminDashboard()
         }.map { dashboard ->
-            dashboard.orderStats ?: AdminOrderStatsDto(0, 0, 0, 0)
+            dashboard.orderStats ?: AdminOrderStatsDto(null)
         }
     }
 }
