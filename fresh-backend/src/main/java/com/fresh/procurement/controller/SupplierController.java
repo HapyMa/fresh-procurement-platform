@@ -4,6 +4,7 @@ import com.fresh.procurement.dto.*;
 import com.fresh.procurement.entity.Quote;
 import com.fresh.procurement.service.DemandService;
 import com.fresh.procurement.service.QuoteService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,7 @@ public class SupplierController {
     }
 
     @PostMapping("/demand-groups/{groupId}/quotes")
+    @PreAuthorize("hasRole('SUPPLIER')")
     public ApiResponse<Quote> createQuote(@PathVariable Long groupId,
                                           @RequestBody CreateQuoteRequest request,
                                           @AuthenticationPrincipal Long userId) {

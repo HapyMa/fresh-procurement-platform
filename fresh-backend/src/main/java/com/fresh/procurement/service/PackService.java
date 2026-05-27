@@ -62,6 +62,11 @@ public class PackService {
         Demand demand = demandRepository.findById(demandId)
                 .orElseThrow(() -> new RuntimeException("需求不存在"));
 
+        // 权限校验：确保 supplierId 与需求的 supplierId 匹配
+        if (demand.getSupplierId() == null || !demand.getSupplierId().equals(supplierId)) {
+            throw new RuntimeException("无权操作该需求");
+        }
+
         // 检查是否已有打包记录
         if (packRecordRepository.findByDemandId(demandId).isPresent()) {
             throw new RuntimeException("打包记录已存在");
@@ -92,12 +97,20 @@ public class PackService {
         Demand demand = demandRepository.findById(demandId)
                 .orElseThrow(() -> new RuntimeException("需求不存在"));
 
+        // 权限校验：确保 supplierId 与需求的 supplierId 匹配
+        if (demand.getSupplierId() == null || !demand.getSupplierId().equals(supplierId)) {
+            throw new RuntimeException("无权操作该需求");
+        }
+
         // 更新打包记录
         packRecord.setActualQuantity(request.getActualQuantity());
         packRecord.setActualWeight(request.getActualWeight());
-        if (request.getActualQuantity() != null && demand.getQuantity() != null) {
+        
+        // 修复偏差计算逻辑：计算实际重量与需求重量的偏差
+        if (request.getActualWeight() != null && demand.getQuantity() != null) {
             packRecord.setWeightDeviation(request.getActualWeight() - demand.getQuantity());
         }
+        
         packRecord.setGrade(request.getGrade());
         packRecord.setQualityCheck(request.getQualityCheck());
         packRecord.setPackageCount(request.getPackageCount());
@@ -108,12 +121,23 @@ public class PackService {
         packRecord = packRecordRepository.save(packRecord);
 
         // 创建 PackageInfo 记录
-        for (int i = 0; i < request.getPackageCount(); i++) {
+        // 添加除零校验
+        int packageCount = request.getPackageCount() != null ? request.getPackageCount() : 0;
+        if (packageCount <= 0) {
+            throw new RuntimeException("包裹数量必须大于0");
+        }
+        
+        double weightPerPackage = 0.0;
+        if (request.getActualWeight() != null && packageCount > 0) {
+            weightPerPackage = request.getActualWeight() / packageCount;
+        }
+        
+        for (int i = 0; i < packageCount; i++) {
             PackageInfo packageInfo = new PackageInfo();
             packageInfo.setPackRecordId(packRecord.getId());
             packageInfo.setDemandId(demandId);
             packageInfo.setPackageNo(UUID.randomUUID().toString().substring(0, 12).toUpperCase());
-            packageInfo.setWeight(request.getActualWeight() != null ? request.getActualWeight() / request.getPackageCount() : 0.0);
+            packageInfo.setWeight(weightPerPackage);
             packageInfo.setItemsCount(1);
             packageInfo.setLabelCode(request.getLabelCode());
             packageInfo.setStatus(0); // 待发货

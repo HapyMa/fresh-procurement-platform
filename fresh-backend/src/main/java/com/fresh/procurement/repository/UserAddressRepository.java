@@ -8,4 +8,9 @@ import java.util.List;
 public interface UserAddressRepository extends JpaRepository<UserAddress, Long> {
 
     List<UserAddress> findByUserIdAndAddressType(Long userId, Integer addressType);
+
+    /**
+     * 按用户ID查询所有地址
+     */
+    List<UserAddress> findByUserId(Long userId);
 }

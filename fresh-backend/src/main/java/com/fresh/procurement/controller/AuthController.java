@@ -4,6 +4,8 @@ import com.fresh.procurement.dto.*;
 import com.fresh.procurement.service.AuthService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -15,7 +17,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ApiResponse<LoginResponse> register(@RequestBody RegisterRequest request) {
+    public ApiResponse<LoginResponse> register(@Valid @RequestBody RegisterRequest request) {
         return ApiResponse.success(authService.register(request));
     }
 

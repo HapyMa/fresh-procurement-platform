@@ -6,6 +6,9 @@ import com.fresh.procurement.entity.DemandGroup;
 import com.fresh.procurement.entity.Quote;
 import com.fresh.procurement.repository.DemandGroupRepository;
 import com.fresh.procurement.repository.QuoteRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -52,27 +55,18 @@ public class QuoteService {
     }
 
     /**
-     * 按供应商和状态查询报价
+     * 按供应商和状态查询报价（数据库分页）
      */
     public QuoteListResponse getMyQuotes(Long supplierId, Integer status, int page, int size) {
-        List<Quote> allQuotes;
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Quote> quotePage;
+
         if (status != null) {
-            allQuotes = quoteRepository.findBySupplierIdAndStatusOrderByCreatedAtDesc(supplierId, status);
+            quotePage = quoteRepository.findBySupplierIdAndStatusOrderByCreatedAtDesc(supplierId, status, pageable);
         } else {
-            allQuotes = quoteRepository.findBySupplierIdOrderByCreatedAtDesc(supplierId);
+            quotePage = quoteRepository.findBySupplierIdOrderByCreatedAtDesc(supplierId, pageable);
         }
 
-        int total = allQuotes.size();
-        int fromIndex = (page - 1) * size;
-        int toIndex = Math.min(fromIndex + size, total);
-
-        List<Quote> list;
-        if (fromIndex >= total) {
-            list = Collections.emptyList();
-        } else {
-            list = allQuotes.subList(fromIndex, toIndex);
-        }
-
-        return new QuoteListResponse(total, list);
+        return new QuoteListResponse((int) quotePage.getTotalElements(), quotePage.getContent());
     }
 }

@@ -54,7 +54,14 @@ public class UserController {
     }
 
     @DeleteMapping("/addresses/{addressId}")
-    public ApiResponse<Void> deleteAddress(@PathVariable Long addressId) {
+    public ApiResponse<Void> deleteAddress(@PathVariable Long addressId,
+                                           @AuthenticationPrincipal Long userId) {
+        // 权限校验：确保 address 的 userId 与当前用户匹配
+        UserAddress address = userAddressRepository.findById(addressId)
+                .orElseThrow(() -> new RuntimeException("地址不存在"));
+        if (!address.getUserId().equals(userId)) {
+            throw new RuntimeException("无权删除该地址");
+        }
         userAddressRepository.deleteById(addressId);
         return ApiResponse.success();
     }

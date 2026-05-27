@@ -7,6 +7,9 @@ import com.fresh.procurement.dto.DemandListResponse;
 import com.fresh.procurement.dto.SelectQuoteRequest;
 import com.fresh.procurement.entity.*;
 import com.fresh.procurement.repository.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -95,28 +98,19 @@ public class DemandService {
     }
 
     /**
-     * 按 buyerId 和 status 分页查询需求
+     * 按 buyerId 和 status 分页查询需求（数据库分页）
      */
     public DemandListResponse getBuyerDemands(Long buyerId, Integer status, int page, int size) {
-        List<Demand> allDemands;
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Demand> demandPage;
+
         if (status != null) {
-            allDemands = demandRepository.findByBuyerIdAndStatusOrderByCreatedAtDesc(buyerId, status);
+            demandPage = demandRepository.findByBuyerIdAndStatusOrderByCreatedAtDesc(buyerId, status, pageable);
         } else {
-            allDemands = demandRepository.findByBuyerIdOrderByCreatedAtDesc(buyerId);
+            demandPage = demandRepository.findByBuyerIdOrderByCreatedAtDesc(buyerId, pageable);
         }
 
-        int total = allDemands.size();
-        int fromIndex = (page - 1) * size;
-        int toIndex = Math.min(fromIndex + size, total);
-
-        List<Demand> list;
-        if (fromIndex >= total) {
-            list = Collections.emptyList();
-        } else {
-            list = allDemands.subList(fromIndex, toIndex);
-        }
-
-        return new DemandListResponse(total, list);
+        return new DemandListResponse((int) demandPage.getTotalElements(), demandPage.getContent());
     }
 
     /**
@@ -181,28 +175,19 @@ public class DemandService {
     }
 
     /**
-     * 按城市和状态查询合并组
+     * 按城市和状态查询合并组（数据库分页）
      */
     public DemandGroupListResponse getDemandGroups(String city, int page, int size) {
-        List<DemandGroup> allGroups;
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<DemandGroup> groupPage;
+
         if (city != null && !city.isEmpty()) {
-            allGroups = demandGroupRepository.findByCityAndStatusOrderByCreatedAtDesc(city, 0);
+            groupPage = demandGroupRepository.findByCityAndStatusOrderByCreatedAtDesc(city, 0, pageable);
         } else {
-            allGroups = demandGroupRepository.findByStatusOrderByCreatedAtDesc(0);
+            groupPage = demandGroupRepository.findByStatusOrderByCreatedAtDesc(0, pageable);
         }
 
-        int total = allGroups.size();
-        int fromIndex = (page - 1) * size;
-        int toIndex = Math.min(fromIndex + size, total);
-
-        List<DemandGroup> list;
-        if (fromIndex >= total) {
-            list = Collections.emptyList();
-        } else {
-            list = allGroups.subList(fromIndex, toIndex);
-        }
-
-        return new DemandGroupListResponse(city, page, size, total, list);
+        return new DemandGroupListResponse(city, page, size, (int) groupPage.getTotalElements(), groupPage.getContent());
     }
 
     /**
@@ -236,27 +221,18 @@ public class DemandService {
     }
 
     /**
-     * 按供应商和状态查询订单
+     * 按供应商和状态查询订单（数据库分页）
      */
     public DemandListResponse getSupplierOrders(Long supplierId, Integer status, int page, int size) {
-        List<Demand> allDemands;
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Demand> demandPage;
+
         if (status != null) {
-            allDemands = demandRepository.findBySupplierIdAndStatusOrderByCreatedAtDesc(supplierId, status);
+            demandPage = demandRepository.findBySupplierIdAndStatusOrderByCreatedAtDesc(supplierId, status, pageable);
         } else {
-            allDemands = demandRepository.findBySupplierIdOrderByCreatedAtDesc(supplierId);
+            demandPage = demandRepository.findBySupplierIdOrderByCreatedAtDesc(supplierId, pageable);
         }
 
-        int total = allDemands.size();
-        int fromIndex = (page - 1) * size;
-        int toIndex = Math.min(fromIndex + size, total);
-
-        List<Demand> list;
-        if (fromIndex >= total) {
-            list = Collections.emptyList();
-        } else {
-            list = allDemands.subList(fromIndex, toIndex);
-        }
-
-        return new DemandListResponse(total, list);
+        return new DemandListResponse((int) demandPage.getTotalElements(), demandPage.getContent());
     }
 }

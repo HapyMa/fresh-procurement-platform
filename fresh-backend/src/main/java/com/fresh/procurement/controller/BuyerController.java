@@ -6,6 +6,7 @@ import com.fresh.procurement.service.DemandService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
@@ -19,7 +20,7 @@ public class BuyerController {
     }
 
     @PostMapping("/demands")
-    public ApiResponse<Demand> createDemand(@RequestBody CreateDemandRequest request,
+    public ApiResponse<Demand> createDemand(@Valid @RequestBody CreateDemandRequest request,
                                             @AuthenticationPrincipal Long userId) {
         return ApiResponse.success(demandService.createDemand(request, userId));
     }
@@ -34,19 +35,37 @@ public class BuyerController {
     }
 
     @GetMapping("/demands/{demandId}")
-    public ApiResponse<Map<String, Object>> getDetail(@PathVariable Long demandId) {
+    public ApiResponse<Map<String, Object>> getDetail(@PathVariable Long demandId,
+                                                      @AuthenticationPrincipal Long userId) {
+        // 权限校验：确保当前用户是该需求的买家
+        Demand demand = demandService.getDemandDetail(demandId);
+        if (!demand.getBuyerId().equals(userId)) {
+            throw new RuntimeException("无权访问该需求详情");
+        }
         return ApiResponse.success(demandService.getDemandDetailWithGroupAndQuotes(demandId));
     }
 
     @PostMapping("/demands/{demandId}/select-quote")
     public ApiResponse<Demand> selectQuote(@PathVariable Long demandId,
-                                           @RequestBody SelectQuoteRequest request) {
+                                           @RequestBody SelectQuoteRequest request,
+                                           @AuthenticationPrincipal Long userId) {
+        // 权限校验：确保当前用户是该需求的买家
+        Demand demand = demandService.getDemandDetail(demandId);
+        if (!demand.getBuyerId().equals(userId)) {
+            throw new RuntimeException("无权操作该需求");
+        }
         return ApiResponse.success(demandService.selectQuote(demandId, request));
     }
 
     @PostMapping("/demands/{demandId}/confirm-receipt")
     public ApiResponse<Void> confirmReceipt(@PathVariable Long demandId,
-                                            @RequestBody Map<String, Object> body) {
+                                            @RequestBody Map<String, Object> body,
+                                            @AuthenticationPrincipal Long userId) {
+        // 权限校验：确保当前用户是该需求的买家
+        Demand demand = demandService.getDemandDetail(demandId);
+        if (!demand.getBuyerId().equals(userId)) {
+            throw new RuntimeException("无权操作该需求");
+        }
         demandService.confirmReceipt(demandId);
         return ApiResponse.success();
     }

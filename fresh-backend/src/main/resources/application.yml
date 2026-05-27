@@ -6,7 +6,7 @@ spring:
     url: jdbc:h2:mem:freshdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
-    password:
+    password: 
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -24,8 +24,12 @@ spring:
       mode: always
 
 jwt:
-  secret: FreshProcurementPlatformSecretKey2024ForJwtTokenGenerationMustBeLongEnough
-  expiration: 86400000
+  secret: ${JWT_SECRET:FreshProcurementPlatformSecretKey2024ForJwtTokenGenerationMustBeLongEnough}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+# CORS 配置
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:8080}
 
 spring.servlet.multipart:
   max-file-size: 10MB
