@@ -1,7 +1,7 @@
 package com.fresh.procurement.domain.usecase.admin
 
 import com.fresh.procurement.data.model.AdminUserListResponse
-import com.fresh.procurement.data.repository.AdminRepository
+import com.fresh.procurement.domain.repository.AdminRepository
 import com.fresh.procurement.domain.error.AppError
 import com.fresh.procurement.domain.error.toAppError
 import com.fresh.procurement.domain.model.UserType

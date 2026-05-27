@@ -104,6 +104,9 @@ dependencies {
     // DataStore (SharedPreferences替代)
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     
+    // Encrypted SharedPreferences
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    
     // Coil (图片加载)
     implementation("io.coil-kt:coil-compose:2.5.0")
     

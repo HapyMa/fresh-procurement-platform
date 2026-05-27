@@ -1,7 +1,7 @@
 package com.fresh.procurement.domain.usecase.admin
 
 import com.fresh.procurement.data.model.AdminDashboard
-import com.fresh.procurement.data.repository.AdminRepository
+import com.fresh.procurement.domain.repository.AdminRepository
 import com.fresh.procurement.domain.error.toAppError
 import javax.inject.Inject
 
