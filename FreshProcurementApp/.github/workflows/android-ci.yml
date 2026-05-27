@@ -31,17 +31,7 @@ jobs:
           cache: 'gradle'
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v2
-
-      - name: Cache Gradle packages
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+        uses: android-actions/setup-android@v3
 
       - name: Grant execute permission for gradlew
         run: chmod +x ${{ github.workspace }}/FreshProcurementApp/gradlew
@@ -49,13 +39,17 @@ jobs:
       - name: Build debug APK
         run: |
           cd ${{ github.workspace }}/FreshProcurementApp
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug --no-daemon --stacktrace 2>&1
+
+      - name: List APK files
+        run: find ${{ github.workspace }}/FreshProcurementApp/app/build/outputs -name "*.apk" -type f 2>/dev/null || echo "No APK found"
 
       - name: Upload debug APK
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk
-          path: FreshProcurementApp/app/build/outputs/apk/debug/app-debug.apk
+          path: FreshProcurementApp/app/build/outputs/apk/debug/*.apk
           retention-days: 30
 
       - name: Upload build outputs
@@ -86,7 +80,7 @@ jobs:
           cache: 'gradle'
 
       - name: Set up Android SDK
-        uses: android-actions/setup-android@v2
+        uses: android-actions/setup-android@v3
 
       - name: Grant execute permission for gradlew
         run: chmod +x ${{ github.workspace }}/FreshProcurementApp/gradlew
